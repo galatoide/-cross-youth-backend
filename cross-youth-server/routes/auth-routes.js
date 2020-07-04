@@ -7,10 +7,9 @@ const bcrypt     = require('bcryptjs');
 const User = require('../models/user-model');
 
 authRoutes.post('/signup', (req, res, next) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    if (!username || !password) {
-      res.status(400).json({ message: 'Provide username and password' });
+    const {username, password, email, firstName, lastName} = req.body;
+    if (!username || !password || !email || !firstName || !lastName) {
+      res.status(400).json({ message: 'Provide all the data!' });
       return;
     }
     if(password.length < 6){
@@ -29,8 +28,11 @@ authRoutes.post('/signup', (req, res, next) => {
         const salt     = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
         const aNewUser = new User({
-            username:username,
-            password: hashPass
+            username: username,
+            password: hashPass,
+            email: email,
+            firstName: firstName,
+            lastName: lastName
         });
         aNewUser.save(err => {
             if (err) {
@@ -56,6 +58,7 @@ authRoutes.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, theUser, failureDetails) => {
       if (err) {
           res.status(500).json({ message: 'Something went wrong authenticating user' });
+          {failureFlash: 'Invalid username or password.'}
           return;
       }
       if (!theUser) {
