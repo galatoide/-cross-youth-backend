@@ -7,16 +7,15 @@ const Post = require('../models/posts-model');
 // GET route => to retrieve a specific route
 postRoutes.get('/posts/:id', (req, res) => {
   Post.findById(req.params.id)
-    .then(task => {
-      res.json(task)
+    .then(post => {
+      res.json(post)
     })
 });
 
 
-// POST route => to create a new task
+// POST route => to create a new post
 postRoutes.post('/posts', (req, res) => {
   Post.create({
-    title: req.body.title,
     description: req.body.description,
     group: req.body.group
   })

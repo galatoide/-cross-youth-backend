@@ -7,7 +7,23 @@ const userSchema = new Schema({
   email: String,
   firstName: String,
   lastName: String,
-  profileImageUrl: String,
+  groups: [],
+  profileImageUrl: {
+    type: String,
+    default: 'https://www.jodilogik.com/wordpress/wp-content/uploads/2016/05/people-1.png'
+  },
+  profileImageName: {
+    type: String,
+    default: 'default-avatar'
+  },
+  profileBackgroundUrl: {
+    type: String,
+    default: 'https://www.jodilogik.com/wordpress/wp-content/uploads/2016/05/people-1.png'
+  },
+  profileBackgroundName: {
+    type: String,
+    default: 'default-background'
+  },
 }, 
 {
   timestamps: true
