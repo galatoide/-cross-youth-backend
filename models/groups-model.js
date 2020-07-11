@@ -5,7 +5,11 @@ const groupSchema = new Schema({
   title: String,
   initials: String,
   description: String,
-  activities: String, // volunteering, choir, meettings, other
+  activities: String,
+  backgroundUrl: {
+    type: String,
+    default: 'https://www.jodilogik.com/wordpress/wp-content/uploads/2016/05/people-1.png'
+  }, // volunteering, choir, meettings, other
   posts: [{ 
     type: Schema.Types.ObjectId,
     ref: 'Post'
